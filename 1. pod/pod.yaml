@@ -1,0 +1,12 @@
+# kubectl run pod2 --image=chmadhus/web-server-2:hyderabad --dry-run=client -o yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: pod2
+  name: pod2
+spec:
+  containers:
+  - image: chmadhus/web-server-2:hyderabad
+    name: pod2
+  restartPolicy: Always
