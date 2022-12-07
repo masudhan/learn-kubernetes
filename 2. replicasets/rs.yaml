@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: webserver1-replicaset
+  labels:
+    app: webserver1
+    tier: frontend
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+      app: webserver1
+  template:
+    metadata:
+      labels:
+        tier: frontend
+        app: webserver1
+    spec:
+      containers:
+      - name: web-server-1
+        image: chmadhus/web-server-2:delhi

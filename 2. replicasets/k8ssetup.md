@@ -15,7 +15,7 @@
 
 Once the nodes are up and running, we need to copy the kube config file from kmaster to our local so run below commands
 * `mkdir ~/.kube`
-* `scp root@172.16.16.100:/etc/kubernetes/admin.conf ~/.kube/config` - password - `kubeadmin`
+* `scp root@172.16.16.100:/etc/kubernetes/admin.conf ~/.kube/config`
 * `kubectl get nodes -o wide`
 
 To stop the clutser
