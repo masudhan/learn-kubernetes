@@ -1,0 +1,21 @@
+# k create deploy web-server-2 --image=chmadhus/web-server-2:hyderabad --replicas 3 --dry-run=client -o yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-server-2
+  name: web-server-2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server-2
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: web-server-2
+    spec:
+      containers:
+      - image: chmadhus/web-server-1:delhi
+        name: web-server-2

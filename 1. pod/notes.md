@@ -8,6 +8,6 @@
 - `alias k=kubectl` </br> 
 - `k run pod1 --image=chmadhus/web-server-1:delhi` This will create a pod, it was running on port 80 </br>
 - `k run pod2 --image=chmadhus/web-server-2:hyderabad --dry-run=client -o yaml` - This will print the yaml manifest as stdout</br>
-- `k run pod2 --image=chmadhus/web-server-1 --dry-run=client -o yaml > pod.yaml` - This will store the output in pod.yaml file</br>
+- `k run pod2 --image=chmadhus/web-server-1:delhi --dry-run=client -o yaml > pod.yaml` - This will store the output in pod.yaml file</br>
 - `k logs <podname>`</br>
 - `k logs <podname> -c <pod1>` - if there are multiple containers and to check logs of particular container</br>
