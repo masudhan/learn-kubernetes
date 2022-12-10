@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pod1
+  name: pod1
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: pod1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: pod1
+    spec:
+      containers:
+      - image: chmadhus/web-server-1:delhi
+        name: web-server-1
+
+
