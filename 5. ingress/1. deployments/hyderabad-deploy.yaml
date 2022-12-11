@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hyderabad-deploy
+  name: hyderabad-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hyderabad-deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: hyderabad-deploy
+    spec:
+      containers:
+      - image: chmadhus/web-server-2:hyderabad
+        name: web-server-2

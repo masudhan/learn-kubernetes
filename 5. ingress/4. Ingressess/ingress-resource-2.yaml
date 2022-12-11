@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hyderabad-deploy-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+spec:
+  tls:
+  - hosts:
+      - www.ch-ms.co.in
+    secretName: letsencrypt-staging
+  ingressClassName: nginx
+  rules:
+  - host: www.ch-ms.co.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hyderabad-deploy
+            port:
+              number: 8000
+

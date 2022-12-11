@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bangalore-deploy
+  name: bangalore-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bangalore-deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: bangalore-deploy
+    spec:
+      containers:
+      - image: chmadhus/web-server-3:bangalore
+        name: web-server-3

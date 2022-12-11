@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tamilnadu-deploy
+  name: tamilnadu-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tamilnadu-deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: tamilnadu-deploy
+    spec:
+      containers:
+      - image: chmadhus/web-server-4:tamilnadu
+        name: web-server-4

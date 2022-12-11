@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hyderabad-deploy
+  name: hyderabad-deploy
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hyderabad-deploy
+status:
+  loadBalancer: {}

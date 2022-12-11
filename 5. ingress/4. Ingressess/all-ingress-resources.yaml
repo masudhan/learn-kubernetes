@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: ingress-resource
+spec:
+  rules:
+  - host: www.ch-ms.co.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hyderabad-deploy
+            port:
+              number: 8000
+      - path: /banglore
+        pathType: Prefix
+        backend:
+          service:
+            name: bangalore-deploy
+            port:
+              number: 8000
+      - path: /tamilnadu
+        pathType: Prefix
+        backend:
+          service:
+            name: tamilnadu-deploy
+            port:
+              number: 8000
+      - path: /delhi
+        pathType: Prefix
+        backend:
+          service:
+            name: delhi-deploy
+            port:
+              number: 8000

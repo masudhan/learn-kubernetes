@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: delhi-deploy
+  name: delhi-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: delhi-deploy
+  template:
+    metadata:
+      labels:
+        app: delhi-deploy
+    spec:
+      containers:
+      - image: chmadhus/web-server-1:delhi
+        name: web-server-1
