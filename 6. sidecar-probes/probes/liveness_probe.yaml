@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hyderabad-deploy
+  name: hyderabad-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hyderabad-deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: hyderabad-deploy
+    spec:
+      containers:
+      - image: chmadhus/web-server-2:hyderabad
+        name: web-server-2
+        readinessProbe:
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+          httpGet:
+              path: /index.html
+              port: 80
+        livenessProbe:
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            timeoutSeconds: 10
+            successThreshold: 1
+            failureThreshold: 1
+            httpGet:
+                path: /index.html
+                port: 80
+            # [or]
+            # exec:
+            #     command:
+            #     - cat
+            #     - /usr/local/apache2/htdocs/index.html
+            # [or]
+            # tcpSocket:
+            #     port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hyderabad-deploy
+  name: hyderabad-deploy
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hyderabad-deploy
+status:
+  loadBalancer: {}

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: httpd
+  name: httpd-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: httpd
+  template:
+    metadata:
+      labels:
+        run: httpd
+
+    spec:
+
+      volumes:
+      - name: shared-volume
+        emptyDir: {}
+
+      initContainers:
+      - name: busybox
+        image: busybox
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /httpd-data
+        command: ["/bin/sh"]
+        args: ["-c", "echo '<h1>Got this html code from init container</h1>' > /httpd-data/index.html"]
+
+      containers:
+      - image: chmadhus/web-server-2:hyderabad
+        name: httpd
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /usr/local/apache2/htdocs/

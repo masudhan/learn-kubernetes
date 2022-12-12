@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: httpd-webapp
+  name: httpd-webapp
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: httpd-webapp
+  template:
+    metadata:
+      labels:
+        app: httpd-webapp
+    spec:
+      containers:
+      - name: adapter-container
+        image: busybox
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /httpd-data
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do echo $(date -u)'<h1>Got this html code from adapter-container</h1>' >> /httpd-data/index.html; sleep 10;done"]
+      - image: chmadhus/web-server-1:delhi
+        name: web-server-1
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /usr/local/apache2/htdocs/
+      volumes:
+      - name: shared-volume
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd-webapp
+  labels:
+    run: httpd-webapp
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: httpd-webapp
+  type: NodePort
