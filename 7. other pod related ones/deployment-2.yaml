@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-server-1
+  name: web-server-1
+spec:
+  minReadySeconds: 20
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server-1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: web-server-1
+    spec:
+      containers:
+      - image: chmadhus/web-server-2:hyderabad
+        name: web-server-1

@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: deamon-set
+  labels:
+    k8s-app: fluentd-logging
+spec:
+  selector:
+    matchLabels:
+      name: deamon-set
+  template:
+    metadata:
+      labels:
+        name: deamon-set
+    spec:
+      containers:
+      - name: deamon-set
+        image: chmadhus/web-server-2:hyderabad

@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web-server-1
+spec:
+  selector:
+    matchLabels:
+      app: web-server-1
+  serviceName: "web-server-1"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: web-server-1
+    spec:
+      containers:
+      - name: web-server-1
+        image: chmadhus/web-server-1:delhi
