@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  volumes:
+  - name: host-volume
+    persistentVolumeClaim:
+      claimName: pvc-hostpath
+  containers:
+  - image: chmadhus/web-server-2:hyderabad
+    name: web-server-2
+    volumeMounts:
+    - name: host-volume
+      mountPath: /mydata

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-1-deployment
+  labels:
+    app: web-server-1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-server-1
+  template:
+    metadata:
+      labels:
+        app: web-server-1
+    spec:
+      containers:
+      - name: web-server-1
+        image: chmadhus/web-server-1:delhi
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - mountPath: /usr/web-server-1
+              name: hostpathvolume
+      volumes:
+        - name: hostpathvolume
+          hostPath:
+              path: /tmp/testinghostpath
+              type: Directory 

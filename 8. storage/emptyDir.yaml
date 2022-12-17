@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-deployment
+  labels:
+    app: web-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq
+        volumeMounts:
+          - name: emptydirvolume
+            mountPath: /etc/mq
+      - name: web-server-2
+        image: chmadhus/web-server-2:hyderabad
+        volumeMounts:
+            - name: emptydirvolume
+              mountPath: /etc/hyd
+      volumes:
+        - name: emptydirvolume
+          emptyDir: {}
