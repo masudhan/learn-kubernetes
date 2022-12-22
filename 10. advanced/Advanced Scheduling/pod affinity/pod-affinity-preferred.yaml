@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-server-1
+  name: web-server-1
+spec:  
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server-1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: web-server-1
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: env
+                  operator: In
+                  values:
+                    - prod
+            topologyKey: topology.kubernetes.io/zone
+      containers:
+      - image: chmadhus/web-server-1:delhi
+        name: web-server-1

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-server-1
+  name: web-server-1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server-1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: web-server-1
+    spec:
+      containers:
+      - image: chmadhus/web-server-1:delhi
+        name: web-server-1
+      tolerations:
+        - key: "perf"
+          operator: "Equal"
+          value: "low"
+          effect: "NoExecute"
