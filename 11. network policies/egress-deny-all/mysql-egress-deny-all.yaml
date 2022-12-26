@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mysqldb-deny-egress-from-mysql-to-internet
+  namespace: mysqldb
+spec:
+  podSelector:
+    matchLabels:
+      app: mysql
+  policyTypes:
+    - Egress
+  egress: []

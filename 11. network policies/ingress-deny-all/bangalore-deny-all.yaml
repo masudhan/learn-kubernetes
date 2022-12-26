@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: bangalore-deny-all
+  namespace: bangalore
+spec:
+  podSelector:
+    matchLabels:
+      ns: bangalore
+  ingress: []
