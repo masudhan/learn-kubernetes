@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata: 
+    spec:
+      containers:
+      - image: busybox
+        command: ["echo", "CronJob has started and completed"]
+        name: test-job
+      restartPolicy: Never

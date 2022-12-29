@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-job
+spec:
+  backoffLimit: 2 #default 6
+  template:
+    metadata: 
+    spec:
+      containers:
+      - image: busybox
+        command: ["ls", "/hello"]
+        name: test-job
+      restartPolicy: Never
