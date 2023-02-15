@@ -1,0 +1,205 @@
+additionalArguments: []
+additionalVolumeMounts: []
+affinity: {}
+autoscaling:
+  enabled: true
+  maxReplicas: 100
+  metrics:
+    - resource:
+        name: cpu
+        target:
+          averageUtilization: 60
+          type: Utilization
+      type: Resource
+    - resource:
+        name: memory
+        target:
+          averageUtilization: 60
+          type: Utilization
+      type: Resource
+  minReplicas: 2
+certResolvers: {}
+deployment:
+  additionalContainers: []
+  additionalVolumes: []
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+  enabled: true
+  imagePullSecrets: []
+  initContainers: []
+  kind: Deployment
+  labels: {}
+  lifecycle: {}
+  minReadySeconds: 0
+  podAnnotations: {}
+  podLabels: {}
+  replicas: 1
+  shareProcessNamespace: false
+  terminationGracePeriodSeconds: 60
+env: []
+envFrom: []
+experimental:
+  kubernetesGateway:
+    enabled: false
+    gateway:
+      enabled: true
+  plugins:
+    enabled: false
+extraObjects: []
+globalArguments:
+  - --global.checknewversion
+  - --global.sendanonymoususage
+hostNetwork: false
+hub:
+  enabled: false
+image:
+  name: traefik
+  pullPolicy: IfNotPresent
+  tag: ""
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+ingressRoute:
+  dashboard:
+    annotations: {}
+    enabled: true
+    entryPoints:
+      - traefik
+    labels: {}
+    matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+    middlewares: []
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 2
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 2
+logs:
+  access:
+    enabled: false
+    fields:
+      general:
+        defaultmode: keep
+        names: {}
+      headers:
+        defaultmode: drop
+        names: {}
+    filters: {}
+  general:
+    level: ERROR
+metrics:
+  prometheus:
+    entryPoint: metrics
+nodeSelector: {}
+persistence:
+  accessMode: ReadWriteOnce
+  annotations: {}
+  enabled: false
+  name: data
+  path: /data
+  size: 128Mi
+podDisruptionBudget:
+  enabled: true
+  maxUnavailable: 80%
+podSecurityContext:
+  fsGroup: 65532
+podSecurityPolicy:
+  enabled: false
+ports:
+  metrics:
+    expose: false
+    exposedPort: 9100
+    port: 9100
+    protocol: TCP
+  traefik:
+    expose: false
+    exposedPort: 9000
+    port: 9000
+    protocol: TCP
+  web:
+    expose: true
+    exposedPort: 80
+    port: 8000
+    protocol: TCP
+  websecure:
+    expose: true
+    exposedPort: 443
+    http3:
+      enabled: false
+    middlewares: []
+    port: 8443
+    protocol: TCP
+    tls:
+      certResolver: ""
+      domains:
+        - main: ch-ms.co.in
+      enabled: true
+      options: ""
+priorityClassName: ""
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: false
+    allowEmptyServices: false
+    allowExternalNameServices: false
+    enabled: true
+    namespaces: []
+  kubernetesIngress:
+    allowEmptyServices: false
+    allowExternalNameServices: false
+    enabled: true
+    namespaces: []
+    publishedService:
+      enabled: false
+rbac:
+  enabled: true
+  namespaced: false
+readinessProbe:
+  failureThreshold: 1
+  initialDelaySeconds: 2
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 2
+resources:
+  limits:
+    cpu: 700m
+    memory: 950Mi
+  requests:
+    cpu: 500m
+    memory: 650Mi
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsGroup: 65532
+  runAsNonRoot: true
+  runAsUser: 65532
+service:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  annotationsTCP: {}
+  annotationsUDP: {}
+  enabled: true
+  externalIPs: []
+  labels: {}
+  loadBalancerSourceRanges: []
+  single: true
+  spec: {}
+  type: LoadBalancer
+serviceAccount:
+  name: ""
+serviceAccountAnnotations: {}
+tlsOptions: {}
+tlsStore: {}
+tolerations: []
+topologySpreadConstraints: []
+tracing: {}
+updateStrategy:
+  rollingUpdate:
+    maxSurge: 10
+    maxUnavailable: 2
+  type: RollingUpdate
+volumes:
+  - mountPath: /certs
+    name: secret-name-for-certificates
+    type: secret
