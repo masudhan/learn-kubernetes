@@ -67,7 +67,7 @@ Check this blog -https://medium.com/bb-tutorials-and-thoughts/kubernetes-learn-a
 ------------------
 
 * Rediness Probe
-    1. This probe will decide when to allow traffic to the pods
+    1. This probe will decide when to allow traffic to the pods. When a Pod is not ready, it is removed from service load balancers based on this rediness probe signal
         - exec: Execute command for container status.
         - httpGet: HTTP GET Request for confirm container status.
         - tcpSocket: TCP Port check to confirm container status
@@ -107,7 +107,7 @@ So what happens is, since we delete the index.html file, it won't send the traff
 --------
 
 * Liveness Probe
-    1. This probe will decide when to restart the pod, instructions will be done by kubelet
+    1. This probe will decide when to restart the pod, instructions will be done by kubelet. Liveness probe could catch a deadlock, where an applicaton is running, but unable to make progress and restarting container helps in such case
         - exec: Execute command for container status.
         - httpGet: HTTP GET Request for confirm container status.
         - tcpSocket: TCP Port check to confirm container status
@@ -143,6 +143,6 @@ It'll automatically creates new pods
 
 * Startup Probe
     1.  Kubelet uses startup probes to know when a container application has started. 
-    2.  This probe will be used for legacy applications, it disables Rediness and Liveness checks until it succeeds, making sure those probes don't interfere with the application startup.
+    2.  This probe will be used for legacy applications/slow starting ones, it disables Rediness and Liveness checks until it succeeds, making sure those probes don't interfere with the application startup.
 
 `k apply -f startup_probe.yaml`
